@@ -1,0 +1,16 @@
+<resources>
+    <color name="grey_8">#888888</color>
+    <color name="grey_a">#AAAAAA</color>
+    <color name="grey_c">#CCCCCC</color>
+    <color name="grey_e">#EEEEEE</color>
+    <color name="light_blue_green">#7FFFD4</color>
+    <color name="blue_green">#55BB84</color>
+    <color name="pink">#FFB5C5</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#0000FF</color>
+    <color name="facebook">#aabbff</color>
+    <color name="green">#00FF00</color>
+    <color name="orange">#FF7040</color>
+</resources>

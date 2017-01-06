@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#aacccccc">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        android:paddingBottom="80dp"
+        android:id="@+id/tvMessage"
+        android:gravity="center"
+        android:singleLine="true"
+        android:layout_alignParentBottom="true"/>
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/llDhv"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+        <!--
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="200dp"-->
+
+</RelativeLayout>

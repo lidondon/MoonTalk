@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlOperation"
+        android:background="@color/dark_green">
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/tvDelete"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="@color/pink"
+            android:text="@string/delete"/>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:id="@+id/tvCancel"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="@string/cancel"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlData"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:id="@+id/ivIcon"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@id/ivIcon"
+            android:id="@+id/tvName"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

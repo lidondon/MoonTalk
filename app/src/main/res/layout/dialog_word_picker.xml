@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <NumberPicker
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/npWord"
+        android:focusable="true"
+        android:layout_centerVertical="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/npWord"
+        android:id="@+id/llButtons">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCancel"
+            android:text="@string/cancel"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@color/grey_e"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnCommit"
+            android:text="@string/commit"
+            android:layout_weight="1"
+            android:layout_margin="10dp"
+            android:background="@color/grey_a"/>
+    </LinearLayout>
+
+</RelativeLayout>
