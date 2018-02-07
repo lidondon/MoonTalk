@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">iamfeeling</string>
-
-    <string name="welcome">歡迎來到MOON TALK</string>
+    <string name="welcome">歡迎來到FEELING</string>
     <string name="login_description_1">加 入 會 員 或 登 入 帳 號</string>
     <string name="login_description_2">開 啟 你 的 心 感 知 旅 程</string>
     <string name="action_settings">Settings</string>
@@ -15,6 +14,7 @@
     <string name="personal_post">Personal Post</string>
     <string name="more">More</string>
     <string name="enter_account_password">請輸入帳號｀密碼</string>
+    <string name="enter_not_complete">請輸入完整資訊</string>
     <string name="error_account_password">帳號｀密碼錯誤</string>
     <string name="previous_step">退回</string>
     <string name="go_on">繼續</string>
@@ -28,6 +28,7 @@
     <string name="title_activity_quote_picker">QuotePickerActivity</string>
     <string name="title_activity_replacement_picker">ReplacementPickerActivity</string>
     <string name="move_and_select_quote">請上下移動選擇符合您心情的引句</string>
+    <string name="move_and_select_quote_2">請點選選擇符合您心情的引句</string>
     <string name="move_and_select_replacement">請點選您想替換的詞彙</string>
     <string name="select_word">請上下移動換選其他替換詞句</string>
     <string name="more_thought">添加更多想法或直接分享</string>
@@ -59,4 +60,41 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_color_picker2">ColorPicker2Activity</string>
     <string name="title_activity_main3">Main3Activity</string>
+    <string name="personal_data">個人資料</string>
+    <string name="settings">設定</string>
+    <string name="qr_code">QR碼</string>
+    <string name="logout">登出</string>
+    <string name="title_activity_personal">PersonalActivity</string>
+    <string name="account_name">用戶名</string>
+    <string name="phone_number">電話號碼</string>
+    <string name="email">電子信箱</string>
+    <string name="friend">朋友</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="auto_login">自動登入</string>
+    <string name="inform">通知</string>
+    <string name="safety_and_secret">安全與隱私</string>
+    <string name="about_feeling">關於Feeling</string>
+    <string name="title_activity_tag_picker">TagPickerActivity</string>
+    <string name="server_no_response">Server目前沒有回應，請稍後再試</string>
+    <string name="show_more">顯示更多</string>
+    <string name="title_activity_sense_picker">SensePickerActivity</string>
+    <string name="sense_confirm">您選取了%1$s</string>
+    <string name="account">帳號</string>
+    <string name="nickname">暱稱</string>
+    <string name="password_confirm">確認密碼</string>
+    <string name="confirm_incorrect">密碼確認錯誤</string>
+    <string name="register_success">註冊成功</string>
+    <string name="warning">警告</string>
+    <string name="loading">Loading...</string>
+    <string name="update_success">修改成功</string>
+    <string name="update_fail">修改失敗</string>
+    <string name="login_fail">登入失敗</string>
+    <string name="trace">追蹤</string>
+    <string name="add_friend">加好友</string>
+    <string name="friends_management">好友管理</string>
+    <string name="add_friends">新增好友</string>
+    <string name="request_fail">請求失敗</string>
+    <string name="already_sent_request">已送出邀請</string>
+    <string name="group">群組</string>
+    <string name="invite">邀請</string>
 </resources>

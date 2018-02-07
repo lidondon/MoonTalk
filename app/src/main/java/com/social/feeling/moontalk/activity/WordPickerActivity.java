@@ -1,12 +1,7 @@
 package com.social.feeling.moontalk.activity;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.NumberPicker;
@@ -19,8 +14,6 @@ import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Quote;
 import com.social.feeling.moontalk.global.PostFeeling;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class WordPickerActivity extends BaseActivity {
@@ -28,7 +21,7 @@ public class WordPickerActivity extends BaseActivity {
     public int textSize = 20;
     private AutoChangeLineLayout autoChangeLineLayout;
     private PostFeeling postFeeling = PostFeeling.getInstance();
-    private Quote quote = postFeeling.feeling.quote;
+    private Quote quote = postFeeling.quote;
     private int replacementIndex;
     private TextView tvCommit;
     private TextView tvCancel;
@@ -71,7 +64,7 @@ public class WordPickerActivity extends BaseActivity {
                 Intent intent = new Intent(WordPickerActivity.this, ReplacementPickerActivity.class);
                 //Bundle bundle = new Bundle();
 
-                quote.replacementList.get(replacementIndex).setSelectedIndex(wordPicker.getValue());
+                quote.replacementList.get(replacementIndex).setSelectedReplacementIndex(wordPicker.getValue());
 //                bundle.putSerializable(Quote.CLASS_NAME, quote);
 //                intent.putExtras(bundle);
                 setResult(RESULT_OK, intent);
@@ -89,7 +82,7 @@ public class WordPickerActivity extends BaseActivity {
             if (former != null) {
                 addText(former);
             }
-            wordPicker = getWordPicker(replacement.wordList, replacement.getSelectedIndex());
+            wordPicker = getWordPicker(replacement.wordList, replacement.getSelectedReplacementIndex());
             autoChangeLineLayout.addView(wordPicker);
             addText(latter);
         }

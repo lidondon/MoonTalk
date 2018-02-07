@@ -1,8 +1,10 @@
 package com.social.feeling.moontalk.activity;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.Spanned;
@@ -18,10 +20,7 @@ import com.empire.vmd.client.android_lib.activity.BaseActivity;
 import com.empire.vmd.client.android_lib.util.ConvertUtil;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Quote;
-import com.social.feeling.moontalk.dialog.WordPickerDialog;
 import com.social.feeling.moontalk.global.PostFeeling;
-
-import java.security.Policy;
 
 public class ReplacementPicker2Activity extends BaseActivity {
     public static final int CODE = 9;
@@ -31,7 +30,7 @@ public class ReplacementPicker2Activity extends BaseActivity {
     private TextView tvCommit;
     private TextView tvCancel;
     private PostFeeling postFeeling = PostFeeling.getInstance();
-    private Quote quote = postFeeling.feeling.quote;
+    private Quote quote = postFeeling.quote;
     private LinearLayout llReplacements;
 //    private String checkedColorId;
 //    private List<String> checkedPhotoList;
@@ -84,7 +83,7 @@ public class ReplacementPicker2Activity extends BaseActivity {
             for (int i = 0; i < quote.replacementList.size(); i++) {
                 Quote.Replacement replacement = quote.replacementList.get(i);
                 int start = replacement.startIndex + quote.getSoFarDelta(i);
-                int end = start + replacement.wordList.get(replacement.getSelectedIndex()).length();
+                int end = start + replacement.wordList.get(replacement.getSelectedReplacementIndex()).length();
                 final int index = i;
                 ClickableSpan clickableSpan = new ClickableSpan() {
                     @Override
@@ -121,11 +120,12 @@ public class ReplacementPicker2Activity extends BaseActivity {
 
     private void initWordPicker(int replacementIndex) {
         switchWordPicker(SHOW);
-        for (int i = 0; i < postFeeling.feeling.quote.replacementList.get(replacementIndex).wordList.size(); i++) {
-            llReplacements.addView(getTvReplacement(replacementIndex, i, postFeeling.feeling.quote.replacementList.get(replacementIndex).wordList.get(i)));
+        for (int i = 0; i < postFeeling.quote.replacementList.get(replacementIndex).wordList.size(); i++) {
+            llReplacements.addView(getTvReplacement(replacementIndex, i, postFeeling.quote.replacementList.get(replacementIndex).wordList.get(i)));
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private TextView getTvReplacement(final int replacementIndex, final int wordIndex, String text) {
         TextView result = new TextView(this);
         int padding = (int) ConvertUtil.convertDp2Pixel(this, 10);
@@ -143,7 +143,7 @@ public class ReplacementPicker2Activity extends BaseActivity {
         result.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postFeeling.feeling.quote.replacementList.get(replacementIndex).setSelectedIndex(wordIndex);
+                postFeeling.quote.replacementList.get(replacementIndex).setSelectedReplacementIndex(wordIndex);
                 switchWordPicker(HIDE);
                 refreshViews();
             }

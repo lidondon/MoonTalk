@@ -64,16 +64,60 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"/>
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvQuote"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:clickable="true"
+        android:layout_height="match_parent"
         android:layout_below="@id/tvLine"
-        android:layout_centerVertical="true"
-        android:layout_above="@id/rlButtons"
-        android:gravity="center"/>
+        android:layout_above="@id/rlButtons">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/llWordPicker"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:visibility="invisible">
+            <NumberPicker
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/npWord"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/llIvs"
+                android:layout_alignParentBottom="true">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/iv_operation_height"
+                    android:id="@+id/ivNo"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/no"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/iv_operation_height"
+                    android:id="@+id/ivYes"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/yes"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/llQuote"
+            android:layout_above="@id/llWordPicker">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvQuote"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
 
 </RelativeLayout>

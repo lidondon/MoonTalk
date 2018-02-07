@@ -71,7 +71,6 @@ public class PhotoItem implements View.OnClickListener {
             ivCheck.setLayoutParams(checkParam);
         }
         resultView.setOnClickListener(this);
-
         if (setBitmap) {
             viewHolder.setContent(uri);
         } else if (resourceId != -1) {

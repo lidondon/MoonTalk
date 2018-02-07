@@ -6,17 +6,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/grey_a">
-        <com.empire.vmd.client.android_lib.extendview.CircleImageView
+        <RelativeLayout
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:id="@+id/rlPortrait"
             android:layout_margin="10dp"
-            android:layout_centerVertical="true"
-            android:id="@+id/ivPhoto"
-            android:src="@drawable/me"/>
+            android:layout_centerVertical="true">
+            <com.empire.vmd.client.android_lib.extendview.CircleImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/ivPortrait"
+                android:src="@drawable/me"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/camera"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ivPhoto"
+            android:layout_toRightOf="@id/rlPortrait"
             android:id="@+id/tvName"
             android:textSize="16dp"
             android:layout_marginLeft="10dp"
@@ -26,8 +37,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ivPhoto"
+            android:layout_toRightOf="@id/rlPortrait"
             android:orientation="vertical"
+            android:id="@+id/llInfo"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -35,7 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvOccupation"
+                android:id="@+id/tvAccount"
                 android:textSize="14dp"
                 android:textColor="@color/black"/>
             <TextView
@@ -45,13 +57,79 @@
                 android:textSize="14dp"
                 android:textColor="@color/black"
                 android:layout_marginTop="5dp"/>
-            <TextView
-                android:layout_width="match_parent"
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/llInfo"
+            android:layout_margin="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvTravel"
-                android:textSize="14dp"
-                android:textColor="@color/black"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:id="@+id/llTrace"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_toLeftOf="@id/llSettings">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/trace"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/trace"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:id="@+id/llAddFriend"
+                android:layout_toLeftOf="@id/llTrace">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/add_friend"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/add_friend"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/llSettings"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/setting"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/settings"/>
+            </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
     <!--<LinearLayout-->
@@ -70,6 +148,12 @@
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="100dp" />-->
     <!--</LinearLayout>-->
+    <LinearLayout
+        android:id="@+id/llFeelings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,9 +192,5 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"/>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:id="@+id/llFeelings" />
+
 </LinearLayout>

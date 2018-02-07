@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Friend;
-import com.social.feeling.moontalk.datamodel.FriendGroup;
+import com.social.feeling.moontalk.datamodel.groupOfFriend;
+import com.social.feeling.moontalk.datamodel.PersonData;
 
 import java.util.List;
 
@@ -67,13 +68,13 @@ public class FriendGroupUtil {
         return view;
     }
 
-    public void integrateFriendAndGroup(List<Friend> friendList, FriendGroup friendGroup) {
-        integrateTwoFriendLists(friendList, friendGroup.friendList);
+    public void integrateFriendAndGroup(List<PersonData> friendList, groupOfFriend groupOfFriend) {
+        integrateTwoFriendLists(friendList, groupOfFriend.friendList);
     }
 
-    public List<Friend> integrateTwoFriendLists(List<Friend> fList1, List<Friend> fList2) {
+    public List<PersonData> integrateTwoFriendLists(List<PersonData> fList1, List<PersonData> fList2) {
         if (fList1 != null && fList2 != null) {
-            for (Friend ui2 : fList2) {
+            for (PersonData ui2 : fList2) {
                 addFriendIfNotExist(fList1, ui2);
             }
         }
@@ -81,16 +82,16 @@ public class FriendGroupUtil {
         return fList1;
     }
 
-    public void addFriendIfNotExist(List<Friend> friendList, Friend friend) {
+    public void addFriendIfNotExist(List<PersonData> friendList, PersonData friend) {
         if (!friendExist(friendList, friend)) {
             friendList.add(friend);
         }
     }
 
-    public boolean friendExist(List<Friend> friendList, Friend friend) {
+    public boolean friendExist(List<PersonData> friendList, PersonData friend) {
         boolean result = false;
 
-        for (Friend f : friendList) {
+        for (PersonData f : friendList) {
             if (f.account.equals(friend.account)) {
                 result = true;
                 break;

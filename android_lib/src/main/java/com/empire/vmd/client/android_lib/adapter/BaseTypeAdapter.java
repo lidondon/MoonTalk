@@ -15,6 +15,10 @@ public class BaseTypeAdapter extends BaseAdapter {
     private List objectList;
     private int maxNum;
 
+    public interface IItemView {
+        public View getItemView(int position, View convertView);
+    }
+
     public BaseTypeAdapter(IItemView icbc, List objList) {
         iItemView = icbc;
         objectList = objList;
@@ -56,7 +60,7 @@ public class BaseTypeAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public interface IItemView {
-        public View getItemView(int position, View convertView);
+    public void addItem(Object newObj) {
+        objectList.add(newObj);
     }
 }

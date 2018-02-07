@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.social.feeling.moontalk.R;
-import com.social.feeling.moontalk.datamodel.FriendGroup;
+import com.social.feeling.moontalk.datamodel.groupOfFriend;
 
 import java.util.List;
 
@@ -18,16 +18,16 @@ import java.util.List;
  */
 public class FriendGroupCheckableItem {
     private Context context;
-    private FriendGroup friendGroup;
-    private List<FriendGroup> friendGroupList;
+    private groupOfFriend groupOfFriend;
+    private List<groupOfFriend> groupOfFriendList;
     private ImageView ivIcon;
     private TextView tvName;
     private CheckBox cbFriend;
 
-    public FriendGroupCheckableItem(Context ctx, FriendGroup fg, List<FriendGroup> fgList) {
+    public FriendGroupCheckableItem(Context ctx, groupOfFriend fg, List<groupOfFriend> fgList) {
         context = ctx;
-        friendGroup = fg;
-        friendGroupList = fgList;
+        groupOfFriend = fg;
+        groupOfFriendList = fgList;
     }
 
     private LayoutInflater getInflater() {
@@ -42,11 +42,11 @@ public class FriendGroupCheckableItem {
         cbFriend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (friendGroupList != null) {
+                if (groupOfFriendList != null) {
                     if (isChecked) {
-                        friendGroupList.add(friendGroup);
+                        groupOfFriendList.add(groupOfFriend);
                     } else {
-                        friendGroupList.remove(friendGroup);
+                        groupOfFriendList.remove(groupOfFriend);
                     }
                 }
             }
@@ -56,9 +56,9 @@ public class FriendGroupCheckableItem {
     }
 
     private void setContent() {
-        if (friendGroup != null) {
+        if (groupOfFriend != null) {
             ivIcon.setImageResource(R.drawable.default_group);
-            tvName.setText(friendGroup.name);
+            tvName.setText(groupOfFriend.name);
         }
     }
 

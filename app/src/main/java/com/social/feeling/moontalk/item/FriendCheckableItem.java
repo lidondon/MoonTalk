@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Friend;
+import com.social.feeling.moontalk.datamodel.PersonData;
 
 import java.util.List;
 
@@ -18,13 +19,13 @@ import java.util.List;
  */
 public class FriendCheckableItem {
     private Context context;
-    private Friend friend;
-    private List<Friend> friendList;
+    private PersonData friend;
+    private List<PersonData> friendList;
     private ImageView ivIcon;
     private TextView tvName;
     private CheckBox cbFriend;
 
-    public FriendCheckableItem(Context ctx, Friend f, List<Friend> fList) {
+    public FriendCheckableItem(Context ctx, PersonData f, List<PersonData> fList) {
         context = ctx;
         friend = f;
         friendList = fList;
@@ -57,7 +58,7 @@ public class FriendCheckableItem {
 
     private void setContent() {
         if (friend != null) {
-            if (friend.photoUri == null) {
+            if (friend.photoUrl == null) {
                 ivIcon.setImageResource(R.drawable.no_man);
             } else {
 

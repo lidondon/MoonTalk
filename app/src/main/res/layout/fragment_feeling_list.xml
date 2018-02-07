@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/grey_a"
+        android:background="@color/white"
         android:divider="@null"
-        android:id="@+id/lvFeelings"/>
-    <!--android:dividerHeight="10dp"   -->
-</LinearLayout>
+        android:id="@+id/lvFeelings"
+        android:dividerHeight="10dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvLoading"
+        android:text="@string/loading"
+        android:visibility="gone"
+        android:background="@color/transparent_white"
+        android:textStyle="bold"
+        android:textSize="@dimen/alert_text_size"
+        android:paddingLeft="10dp"
+        android:layout_alignParentBottom="true"/>
+</RelativeLayout>

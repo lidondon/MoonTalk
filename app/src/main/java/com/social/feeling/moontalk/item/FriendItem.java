@@ -16,6 +16,7 @@ import com.empire.vmd.client.android_lib.gesture.HorizontalGestureListener;
 import com.empire.vmd.client.android_lib.util.EffectUtil;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Friend;
+import com.social.feeling.moontalk.datamodel.PersonData;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class FriendItem implements View.OnTouchListener {
     private static final int RIGHT = 2;
     private Context context;
     private View resultView;
-    private Friend friend;
+    private PersonData friend;
     private ImageView ivIcon;
     private TextView tvName;
     private TextView tvDelete;
@@ -39,14 +40,14 @@ public class FriendItem implements View.OnTouchListener {
     private GestureDetector gestureDetector;
     private HorizontalGestureListener horizontalGestureListener;
     private EffectUtil effectUtil;
-    private List<Friend> selectedFriendList;
+    private List<PersonData> selectedFriendList;
     private IDeleteMission iDeleteMission;
 
     public interface IDeleteMission {
         public void executeDeleteMission();
     }
 
-    public FriendItem(Context ctx, Friend f, List<Friend> sfList, IDeleteMission idm) {
+    public FriendItem(Context ctx, PersonData f, List<PersonData> sfList, IDeleteMission idm) {
         context = ctx;
         friend = f;
         selectedFriendList = sfList;
@@ -96,7 +97,7 @@ public class FriendItem implements View.OnTouchListener {
 
     private void setContent() {
         if (friend != null) {
-            if (friend.photoUri == null) {
+            if (friend.photoUrl == null) {
                 ivIcon.setImageResource(R.drawable.no_man);
             } else {
 

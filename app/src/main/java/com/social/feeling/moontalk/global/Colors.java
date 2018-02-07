@@ -50,10 +50,12 @@ public class Colors {
     public int getColorResource(String id) {
         int result = 0;
 
-        for (ColorObject co : colorObjectList) {
-            if (id.equals(co.id)) {
-                result = co.colorImageResource;
-                break;
+        if (id != null) {
+            for (ColorObject co : colorObjectList) {
+                if (id.equals(co.id)) {
+                    result = co.colorImageResource;
+                    break;
+                }
             }
         }
 

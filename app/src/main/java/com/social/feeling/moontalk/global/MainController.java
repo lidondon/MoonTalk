@@ -1,15 +1,13 @@
 package com.social.feeling.moontalk.global;
 
-import android.os.Handler;
-
 import com.social.feeling.moontalk.activity.MainActivity;
-import com.social.feeling.moontalk.fragment.WallFragment;
+import com.social.feeling.moontalk.fragment.FeelingPostFragment;
 
 /**
  * Created by lidondon on 2016/8/8.
  */
 public class MainController {
-    public static final int WALL = 0;
+    public static final int FEELING_POST = 0;
     public static final int NEW_POST = 1;
     public static final int PERSONAL = 2;
     public static final int MORE = 3;
@@ -40,7 +38,8 @@ public class MainController {
         mainActivity.setViewPagerIndex(index);
     }
 
-    public Handler getRefreshWallHandler() {
-        return ((WallFragment) mainActivity.fragmentList.get(WALL)).getRefreshHandler();
+    public void refreshFeelingPost() {
+        //mainActivity.setFeelingPostInitiated(false);
+        ((FeelingPostFragment) mainActivity.fragmentList.get(FEELING_POST)).refreshLlFeelings();
     }
 }

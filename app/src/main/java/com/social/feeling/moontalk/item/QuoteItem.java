@@ -6,20 +6,32 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.social.feeling.moontalk.R;
+import com.social.feeling.moontalk.datamodel.Quote;
 
 /**
  * Created by lidondon on 2016/7/8.
  */
 public class QuoteItem {
     private Context context;
+    private IOnClickListener iOnClickListener;
     private ViewHolder viewHolder;
     private String quoteText;
+    private Quote quote;
     private View resultView;
+
+    public interface IOnClickListener {
+        public void onClick(QuoteItem qi);
+    }
 
     public QuoteItem(Context ctx, String qt) {
         context = ctx;
-
         quoteText = qt;
+    }
+
+    public QuoteItem(Context ctx, Quote q, IOnClickListener iocl) {
+        context = ctx;
+        quote = q;
+        iOnClickListener = iocl;
     }
 
     private LayoutInflater getInflater() {
@@ -31,10 +43,18 @@ public class QuoteItem {
             resultView = getInflater().inflate(R.layout.item_quote, null);
 
             findViews(resultView);
-            viewHolder.setContent(quoteText);
+            if (quote != null) {
+                viewHolder.setContent(quote);
+            } else {
+                viewHolder.setContent(quoteText);
+            }
         }
 
         return resultView;
+    }
+
+    public Quote getQuote() {
+        return quote;
     }
 
     private void findViews(View rootView) {
@@ -53,13 +73,23 @@ public class QuoteItem {
             tvQuoteText.setText(text);
         }
 
+        public void setContent(Quote q) {
+            tvQuoteText.setText(q.text);
+            tvQuoteText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (iOnClickListener != null) {
+                        iOnClickListener.onClick(QuoteItem.this);
+                    }
+                }
+            });
+        }
+
         public void isChecked(boolean checked) {
             if (checked) {
-                tvQuoteText.setBackgroundColor(context.getResources().getColor(R.color.white));
-                tvQuoteText.setTextColor((context.getResources().getColor(R.color.grey_8)));
+                tvQuoteText.setBackgroundColor(context.getResources().getColor(R.color.pink));
             } else {
-                tvQuoteText.setBackgroundColor(context.getResources().getColor(R.color.grey_c));
-                tvQuoteText.setTextColor((context.getResources().getColor(R.color.grey_a)));
+                tvQuoteText.setBackgroundColor(context.getResources().getColor(R.color.transparent));
             }
         }
     }

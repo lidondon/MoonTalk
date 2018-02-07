@@ -3,7 +3,6 @@ package com.social.feeling.moontalk.activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -21,6 +20,7 @@ import com.empire.vmd.client.android_lib.activity.BaseFragmentActivity;
 import com.empire.vmd.client.android_lib.adapter.BaseTypeAdapter;
 import com.empire.vmd.client.android_lib.component.CompleteHookComponent;
 import com.empire.vmd.client.android_lib.util.AndroidBuiltInUtil;
+import com.empire.vmd.client.android_lib.util.DateTimeUtil;
 import com.empire.vmd.client.android_lib.util.EffectUtil;
 import com.empire.vmd.client.android_lib.util.FileUtil;
 import com.empire.vmd.client.android_lib.util.OtherUtil;
@@ -28,9 +28,9 @@ import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.fragment.GalleryFragment;
 import com.social.feeling.moontalk.fragment.TagsFragment;
 import com.social.feeling.moontalk.global.Feelings;
+import com.social.feeling.moontalk.global.FileConfig;
 import com.social.feeling.moontalk.global.LoginData;
 import com.social.feeling.moontalk.global.MainController;
-import com.social.feeling.moontalk.global.MoonTalkConfig;
 import com.social.feeling.moontalk.global.PostFeeling;
 import com.social.feeling.moontalk.item.NicknameItem;
 
@@ -64,22 +64,27 @@ public class PostActivity extends BaseFragmentActivity {
     private EffectUtil effectUtil;
     private PostFeeling postFeeling = PostFeeling.getInstance();
     private LoginData loginData = LoginData.getInstance(this);
-    private Feelings feelings;
     private List<String> historyNicknameList;
     private FileUtil fileUtil;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         postFeeling.addActivity(this);
-        feelings = new Feelings(this);
         fileUtil = new FileUtil(PostActivity.this);
         findViews();
         effectUtil = new EffectUtil();
         initPhotos();
-        tvQuote.setText(postFeeling.feeling.quote.currentText);
-        initFlTags();
+        tvQuote.setText(postFeeling.feeling.quote);
+        //initFlTags();
         tvCommit.setOnClickListener(getLlPostOptionAppearListener());
         tvCancel.setOnClickListener(getFinishListener());
         setLlPostOptionsListeners();
@@ -111,10 +116,10 @@ public class PostActivity extends BaseFragmentActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.flPhotos, imagesFragment).commit();
     }
 
-    private void initFlTags() {
-        tagsFragment = new TagsFragment(this, postFeeling.feeling.tagList);
-        getSupportFragmentManager().beginTransaction().replace(R.id.flTags, tagsFragment).commit();
-    }
+//    private void initFlTags() {
+//        tagsFragment = new TagsFragment(this, postFeeling.feeling.tagList);
+//        getSupportFragmentManager().beginTransaction().replace(R.id.flTags, tagsFragment).commit();
+//    }
 
     private View.OnClickListener getFinishListener() {
         return new View.OnClickListener() {
@@ -155,9 +160,10 @@ public class PostActivity extends BaseFragmentActivity {
     }
 
     private void postByNickname(String nickname) {
-        postFeeling.feeling.account = loginData.account;
+        postFeeling.feeling.account = loginData.personData.account;
         postFeeling.feeling.name = nickname;
-        feelings.postFeeling(postFeeling.feeling);
+        postFeeling.feeling.id = DateTimeUtil.getNowString("yyyyMMdd-HHmmss");
+        Feelings.postFeeling(this, postFeeling.feeling);
         postSuccess();
     }
 
@@ -171,11 +177,11 @@ public class PostActivity extends BaseFragmentActivity {
         } else {
             historyNicknameList.add(0, newNickname);
         }
-        fileUtil.saveExternalFile(MoonTalkConfig.EXTERNAL_DIR, HISTORY_NICKNAME_FILE_NAME, getNewStrNicknameList());
+        fileUtil.saveExternalFile(FileConfig.EXTERNAL_DIR, HISTORY_NICKNAME_FILE_NAME, getNewStrNicknameList());
     }
 
     private void getHistoryNicknameList() {
-        String strNicknames = fileUtil.getStringFromExternalFile(MoonTalkConfig.EXTERNAL_DIR, HISTORY_NICKNAME_FILE_NAME);
+        String strNicknames = fileUtil.getStringFromExternalFile(FileConfig.EXTERNAL_DIR, HISTORY_NICKNAME_FILE_NAME);
 
         if (strNicknames != null && !strNicknames.isEmpty()) {
             String[] nicknames = strNicknames.split(",");
@@ -287,10 +293,11 @@ public class PostActivity extends BaseFragmentActivity {
         tvPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postFeeling.feeling.account = loginData.account;
-                postFeeling.feeling.name = loginData.name;
-                postFeeling.feeling.photoUri = loginData.photo;
-                feelings.postFeeling(postFeeling.feeling);
+                postFeeling.feeling.account = loginData.personData.account;
+                postFeeling.feeling.name = loginData.personData.name;
+                postFeeling.feeling.photoUri = loginData.personData.photoUrl;
+                postFeeling.feeling.id = DateTimeUtil.getNowString("yyyyMMdd-HHmmss");
+                Feelings.postFeeling(PostActivity.this, postFeeling.feeling);
                 postSuccess();
             }
         });
@@ -360,8 +367,10 @@ public class PostActivity extends BaseFragmentActivity {
                 MainController mainController = MainController.getInstance();
 
                 postFeeling.clear();
-                //mainController.setFragmentIndex(MainController.WALL);
-                //mainController.getRefreshWallHandler().sendEmptyMessage(0);
+                if (mainController != null) {
+                    //mainController.setFragmentIndex(MainController.FEELING_POST);
+                    mainController.refreshFeelingPost();
+                }
             }
         };
         rlComplete.addView(new CompleteHookComponent(this, getResources().getString(R.string.post_success), handler).getView());

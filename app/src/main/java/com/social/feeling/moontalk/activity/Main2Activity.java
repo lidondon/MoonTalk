@@ -1,7 +1,6 @@
 package com.social.feeling.moontalk.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,7 @@ import com.empire.vmd.client.android_lib.activity.BaseFragmentActivity;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.fragment.NewFragment;
 import com.social.feeling.moontalk.fragment.PersonalFragment;
-import com.social.feeling.moontalk.fragment.WallFragment;
-import com.social.feeling.moontalk.global.MainController;
+import com.social.feeling.moontalk.fragment.FeelingPostFragment;
 
 public class Main2Activity extends BaseFragmentActivity {
     @Override
@@ -26,7 +24,7 @@ public class Main2Activity extends BaseFragmentActivity {
     private void initTabContent() {
         FragmentTabHost tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         View vFeeling = LayoutInflater.from(this).inflate(R.layout.tab_feeling, null);
-        TabHost.TabSpec tsFeeling = tabHost.newTabSpec("WALL").setIndicator(vFeeling);
+        TabHost.TabSpec tsFeeling = tabHost.newTabSpec("FEELING_POST").setIndicator(vFeeling);
         View vChatting = LayoutInflater.from(this).inflate(R.layout.tab_chatting, null);
         TabHost.TabSpec tsChatting = tabHost.newTabSpec("CHATTING").setIndicator(vChatting);
         View vMore = LayoutInflater.from(this).inflate(R.layout.tab_more, null);
@@ -36,7 +34,7 @@ public class Main2Activity extends BaseFragmentActivity {
 
         tabHost.setup(this, getSupportFragmentManager(), R.id.realTabContent);
         //1
-        tabHost.addTab(tsFeeling, WallFragment.class, null);
+        tabHost.addTab(tsFeeling, FeelingPostFragment.class, null);
 //        tabHost.addTab(tabHost.newTabSpec("Apple")
 //                        .setIndicator("Apple", getResources().getDrawable(R.drawable.feelings)),
 //                AppleFragment.class,

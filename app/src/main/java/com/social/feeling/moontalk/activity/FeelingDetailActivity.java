@@ -20,17 +20,21 @@ import com.social.feeling.moontalk.datamodel.Feeling;
 import com.social.feeling.moontalk.fragment.GalleryFragment;
 import com.social.feeling.moontalk.fragment.TagsFragment;
 import com.social.feeling.moontalk.global.Colors;
+import com.social.feeling.moontalk.util.SQLiteUtil;
+
+import java.io.File;
 
 public class FeelingDetailActivity extends BaseFragmentActivity {
     private static final int PHOTO_WIDTH = 120;
     private static final int PHOTO_HEIGHT = 120;
     private Feeling feeling;
     private ImageView ivPhoto;
+    private ImageView ivSense;
     private TextView tvName;
     private TextView tvQuote;
     private TextView tvThought;
     //private ImageView ivColor;
-    private TagsFragment tagsFragment;
+    //private TagsFragment tagsFragment;
     private GalleryFragment galleryFragment;
 
     @Override
@@ -42,17 +46,22 @@ public class FeelingDetailActivity extends BaseFragmentActivity {
         initLlPerson();
         initPhotos();
         //ivColor.setImageResource(Colors.getInstance().getColorResource(feeling.checkedColorId));
-        tvQuote.setText(feeling.quote.currentText);
-        initFlTags();
+        tvQuote.setText(feeling.quote);
+        //initFlTags();
         tvThought.setText(feeling.thought);
     }
 
     private void getExtrasData() {
-        feeling = (Feeling) getIntent().getSerializableExtra(Feeling.class.getName());
+        feeling = getFeelingByUid(getIntent().getExtras().getString(Feeling.class.getName()));
+    }
+
+    private Feeling getFeelingByUid(String uid) {
+        return Feeling.getFeelingByUidFromLocal(this, uid);
     }
 
     private void findViews() {
         ivPhoto = (ImageView) findViewById(R.id.ivPhoto);
+        ivSense = (ImageView) findViewById(R.id.ivSense);
         tvName = (TextView) findViewById(R.id.tvName);
         tvQuote = (TextView) findViewById(R.id.tvQuote);
         tvThought = (TextView) findViewById(R.id.tvThought);
@@ -77,8 +86,8 @@ public class FeelingDetailActivity extends BaseFragmentActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.flPhotos, galleryFragment).commit();
     }
 
-    private void initFlTags() {
-        tagsFragment = new TagsFragment(this, feeling.tagList, Colors.getInstance().getColorResource(feeling.checkedColorId));
-        getSupportFragmentManager().beginTransaction().replace(R.id.flTags, tagsFragment).commit();
-    }
+//    private void initFlTags() {
+//        tagsFragment = new TagsFragment(this, feeling.tagList, Colors.getInstance().getColorResource(feeling.checkedColorId));
+//        getSupportFragmentManager().beginTransaction().replace(R.id.flTags, tagsFragment).commit();
+//    }
 }

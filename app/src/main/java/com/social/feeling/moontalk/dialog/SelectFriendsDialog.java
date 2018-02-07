@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.empire.vmd.client.android_lib.adapter.ExpandableListViewAdapter;
 import com.social.feeling.moontalk.R;
-import com.social.feeling.moontalk.datamodel.Friend;
-import com.social.feeling.moontalk.datamodel.FriendGroup;
+import com.social.feeling.moontalk.datamodel.groupOfFriend;
+import com.social.feeling.moontalk.datamodel.PersonData;
 import com.social.feeling.moontalk.global.FriendAndGroup;
 import com.social.feeling.moontalk.item.ElvGroupItem;
 import com.social.feeling.moontalk.item.FriendCheckableItem;
@@ -32,11 +32,11 @@ public class SelectFriendsDialog extends Dialog implements ExpandableListViewAda
     private ExpandableListView elvFriends;
     private List groupList;
     private List<List> childrenList;
-    private List<Friend> friendSelectedList = new ArrayList<Friend>();
-    private List<FriendGroup> friendGroupList = new ArrayList<FriendGroup>();
+    private List<PersonData> friendSelectedList = new ArrayList<>();
+    private List<groupOfFriend> groupOfFriendList = new ArrayList<groupOfFriend>();
 
     public interface IReceiveCheckedFriendList {
-        public void getSelectedFriendList(List<Friend> friendList);
+        public void getSelectedFriendList(List<PersonData> friendList);
         public Context getContext();
     }
 
@@ -46,7 +46,7 @@ public class SelectFriendsDialog extends Dialog implements ExpandableListViewAda
         iReceiveCheckedFriendList = ircfList;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_order_members);
-        getViews();
+        findViews();
         elvFriends.setAdapter(getElvAdapter());
         elvFriends.expandGroup(groupList.size() - 1); //打開最後一個群組
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +61,7 @@ public class SelectFriendsDialog extends Dialog implements ExpandableListViewAda
             public void onClick(View v) {
                 FriendGroupUtil friendGroupUtil = new FriendGroupUtil(context);
 
-                for (FriendGroup fgi : friendGroupList) {
+                for (groupOfFriend fgi : groupOfFriendList) {
                     friendGroupUtil.integrateFriendAndGroup(friendSelectedList, fgi);
                 }
                 iReceiveCheckedFriendList.getSelectedFriendList(friendSelectedList);
@@ -80,9 +80,9 @@ public class SelectFriendsDialog extends Dialog implements ExpandableListViewAda
         } else {
             groupList = new ArrayList();
             childrenList = new ArrayList<List>();
-            groupList.add("群組 (" + ((friendAndGroup.friendGroupList == null) ? 0 : friendAndGroup.friendGroupList.size()) + ")");
+            groupList.add("群組 (" + ((friendAndGroup.groupOfFriendList == null) ? 0 : friendAndGroup.groupOfFriendList.size()) + ")");
             groupList.add("好友 (" + ((friendAndGroup.friendList == null) ? 0 : friendAndGroup.friendList.size()) + ")");
-            childrenList.add(friendAndGroup.friendGroupList);
+            childrenList.add(friendAndGroup.groupOfFriendList);
             childrenList.add(friendAndGroup.friendList);
             elvAdapter = new ExpandableListViewAdapter(this, groupList, childrenList);
         }
@@ -90,7 +90,7 @@ public class SelectFriendsDialog extends Dialog implements ExpandableListViewAda
         return elvAdapter;
     }
 
-    private void getViews() {
+    private void findViews() {
         btnCommit = (Button) findViewById(R.id.btnCommit);
         btnCancel = (Button) findViewById(R.id.btnCancel);
         elvFriends = (ExpandableListView) findViewById(R.id.elvFriends);
@@ -106,10 +106,10 @@ public class SelectFriendsDialog extends Dialog implements ExpandableListViewAda
         View resultView = null;
 
         if (groupPosition == 0) {
-            resultView = new FriendGroupCheckableItem(context, (FriendGroup) childrenList.get(groupPosition).get(childrenPosition)
-                    , friendGroupList).getView();
+            resultView = new FriendGroupCheckableItem(context, (groupOfFriend) childrenList.get(groupPosition).get(childrenPosition)
+                    , groupOfFriendList).getView();
         } else {
-            resultView = new FriendCheckableItem(context, (Friend) childrenList.get(groupPosition).get(childrenPosition)
+            resultView = new FriendCheckableItem(context, (PersonData) childrenList.get(groupPosition).get(childrenPosition)
                     , friendSelectedList).getView();
         }
 

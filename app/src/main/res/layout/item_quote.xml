@@ -7,9 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tvQuoteText"
-        android:padding="12dp"
-        android:background="@color/grey_c"
-        android:textColor="@color/grey_a"
-        android:textSize="18dp"
-        android:textStyle="bold"/>
+        android:padding="@dimen/quote_item_padding"
+        android:textSize="@dimen/quote"
+        android:singleLine="true"/>
 </RelativeLayout>

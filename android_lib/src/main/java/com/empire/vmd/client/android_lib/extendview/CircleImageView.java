@@ -67,7 +67,7 @@ public class CircleImageView extends ImageView{
      */
     private Bitmap getCircleBitmap(Bitmap bitmap, int pixels) {
         Bitmap output = null;
-        Log.e("AAA", "getCircleBitmap");
+
         if (bitmap != null) {
             output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
             Canvas canvas = new Canvas(output);

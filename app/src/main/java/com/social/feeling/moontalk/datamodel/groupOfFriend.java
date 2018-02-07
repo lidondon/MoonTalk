@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by lidondon on 2016/8/22.
  */
-public class FriendGroup {
+public class groupOfFriend {
     private static String ID = "Id";
     private static String NAME = "Name";
     private static String PHOTO_URI = "PhotoUri";
@@ -19,7 +19,7 @@ public class FriendGroup {
     public String id;
     public String name;
     public String photoUri;
-    public List<Friend> friendList = new ArrayList<Friend>();;
+    public List<PersonData> friendList = new ArrayList<PersonData>();;
 
     public JSONObject toJSONObject() {
         JSONObject result = new JSONObject();
@@ -43,7 +43,7 @@ public class FriendGroup {
         JSONArray result = new JSONArray();
 
         if (friendList != null) {
-            for (Friend friend : friendList) {
+            for (PersonData friend : friendList) {
                 JSONObject jo = friend.toJSONObject();
 
                 result.put(jo);

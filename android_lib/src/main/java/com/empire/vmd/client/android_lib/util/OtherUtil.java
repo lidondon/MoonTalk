@@ -2,10 +2,14 @@ package com.empire.vmd.client.android_lib.util;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 

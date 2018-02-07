@@ -1,23 +1,27 @@
 package com.social.feeling.moontalk.datamodel;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.empire.vmd.client.android_lib.httpproxy.VolleyRequest;
 import com.empire.vmd.client.android_lib.util.FileUtil;
-import com.social.feeling.moontalk.global.MoonTalkConfig;
+import com.social.feeling.moontalk.global.FileConfig;
+import com.social.feeling.moontalk.http.WebConfig;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lidondon on 2016/7/6.
  */
-public class Quote implements Serializable {
+public class Quote {
     public static final String FAKE_QUOTE_FILE = "quotes.txt";
     public static final String CLASS_NAME = "Quote";
     public static final String ID = "id";
@@ -26,12 +30,16 @@ public class Quote implements Serializable {
     public static final String START_INDEX = "startIndex";
     public static final String LENGTH = "length";
     public static final String WORDS = "words";
-    public static final String SELECTED_INDEX = "selectedIndex";
+    public static final String SELECTED_INDEX = "selectedReplacementIndex";
     public String id;
     public String text;
     public String currentText;
     public List<Replacement> replacementList;
     public List<Integer> deltaList;
+
+    public interface IQuoteListListener {
+        public void processQuoteList(List<Quote> quoteList);
+    }
 
     public Quote() {
 
@@ -57,23 +65,23 @@ public class Quote implements Serializable {
         deltaList = null;
     }
 
-    public static class Replacement implements Serializable {
+    public static class Replacement {
         private Quote quote;
         public int startIndex;
         public int length;
         public List<String> wordList;
-        protected int selectedIndex;
+        protected int selectedReplacementIndex;
 
         public Replacement(Quote q) {
             quote = q;
         }
 
-        public int getSelectedIndex() {
-            return selectedIndex;
+        public int getSelectedReplacementIndex() {
+            return selectedReplacementIndex;
         }
 
-        public void setSelectedIndex(int index) {
-            selectedIndex = index;
+        public void setSelectedReplacementIndex(int index) {
+            selectedReplacementIndex = index;
             quote.setCurrentText();
         }
     }
@@ -87,10 +95,10 @@ public class Quote implements Serializable {
             for (int i = 0; i < replacementList.size(); i++) {
                 Quote.Replacement replacement = replacementList.get(i);
                 String orgWord = replacement.wordList.get(0);
-                String selectedWord = replacement.wordList.get(replacement.selectedIndex);
+                String selectedWord = replacement.wordList.get(replacement.selectedReplacementIndex);
                 int delta;
 
-                if (replacement.selectedIndex != 0) {
+                if (replacement.selectedReplacementIndex != 0) {
                     delta = selectedWord.length() - orgWord.length();
                 } else {
                     delta = 0;
@@ -124,28 +132,54 @@ public class Quote implements Serializable {
         return result;
     }
 
-    public static List<Quote> getQuoteList(Context context) {
-        List<Quote> result = null;
-        String strQuotes = new FileUtil(context).getStringFromExternalFile(MoonTalkConfig.EXTERNAL_DIR, FAKE_QUOTE_FILE);
+    public static void getQuoteList(Context context, final IQuoteListListener iQuoteListListener) {
+        VolleyRequest volleyRequest = VolleyRequest.getInstance(context);
+        Response.Listener<JSONArray> listener = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray root) {
+                List<Quote> quoteList = new ArrayList<Quote>();
 
-        if (strQuotes != null && !strQuotes.isEmpty()) {
-            try {
-                JSONArray root = new JSONArray(strQuotes);
+                try {
+                    for (int i = 0; i < root.length(); i++) {
+                        JSONObject jo = root.getJSONObject(i);
+                        Quote quote = new Quote(jo);
 
-                result = (root.length() > 0) ? new ArrayList<Quote>() : null;
-                for (int i = 0; i < root.length(); i++) {
-                    JSONObject jo = root.getJSONObject(i);
-                    Quote quote = new Quote(jo);
-
-                    result.add(quote);
+                        quoteList.add(quote);
+                    }
+                    iQuoteListListener.processQuoteList(quoteList);
+                } catch (Exception e) {
+                    quoteList = null;
+                    Log.e(CLASS_NAME, e.toString());
                 }
-            } catch (Exception e) {
-                result = null;
-                Log.e(CLASS_NAME, e.toString());
             }
-        }
+        };
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e(CLASS_NAME, error.toString());
+            }
+        };
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, WebConfig.GET_QUOTES, listener, errorListener);
 
-        return result;
+        volleyRequest.addRequest(jsonArrayRequest);
+        //String strQuotes = new FileUtil(context).getStringFromExternalFile(FileConfig.EXTERNAL_DIR, FAKE_QUOTE_FILE);
+
+//        if (strQuotes != null && !strQuotes.isEmpty()) {
+//            try {
+//                JSONArray root = new JSONArray(strQuotes);
+//
+//                result = (root.length() > 0) ? new ArrayList<Quote>() : null;
+//                for (int i = 0; i < root.length(); i++) {
+//                    JSONObject jo = root.getJSONObject(i);
+//                    Quote quote = new Quote(jo);
+//
+//                    result.add(quote);
+//                }
+//            } catch (Exception e) {
+//                result = null;
+//                Log.e(CLASS_NAME, e.toString());
+//            }
+//        }
     }
 
 //    public static Quote getQuote(JSONObject jo) {
@@ -178,7 +212,7 @@ public class Quote implements Serializable {
                     replacement.length = jo.getInt(LENGTH);
                     replacement.wordList = getWordList(jo.getJSONArray(WORDS));
                     if (jo.has(SELECTED_INDEX)) {
-                        replacement.selectedIndex = jo.getInt(SELECTED_INDEX);
+                        replacement.selectedReplacementIndex = jo.getInt(SELECTED_INDEX);
                     }
                     result.add(replacement);
                 }
@@ -303,7 +337,7 @@ public class Quote implements Serializable {
         } catch (Exception e) {
             Log.e("Quote", e.toString());
         }
-        new FileUtil(ctx).saveExternalFile(MoonTalkConfig.EXTERNAL_DIR, "quotes.txt", root.toString());
+        new FileUtil(ctx).saveExternalFile(FileConfig.EXTERNAL_DIR, "quotes.txt", root.toString());
     }
 
     public static void copyFakeData(Context ctx, List<Quote> quoteList) {
@@ -320,7 +354,7 @@ public class Quote implements Serializable {
                 Log.e("AAA", ex.toString());
             }
         }
-        new FileUtil(ctx).saveExternalFile(MoonTalkConfig.EXTERNAL_DIR, FAKE_QUOTE_FILE, ja.toString());
+        new FileUtil(ctx).saveExternalFile(FileConfig.EXTERNAL_DIR, FAKE_QUOTE_FILE, ja.toString());
     }
 
     public JSONObject toJsonObject() {
@@ -353,7 +387,7 @@ public class Quote implements Serializable {
         try {
             jo.put(START_INDEX, r.startIndex);
             jo.put(LENGTH, r.length);
-            jo.put(SELECTED_INDEX, r.selectedIndex);
+            jo.put(SELECTED_INDEX, r.selectedReplacementIndex);
             jo.put(WORDS, getWordJsonArray(r.wordList));
         } catch (Exception ex) {
 

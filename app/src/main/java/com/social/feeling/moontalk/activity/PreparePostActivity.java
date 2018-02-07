@@ -1,6 +1,5 @@
 package com.social.feeling.moontalk.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,40 +7,43 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.Gallery;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.empire.vmd.client.android_lib.activity.BaseActivity;
-import com.empire.vmd.client.android_lib.dialog.OneEditTextDialog;
-import com.empire.vmd.client.android_lib.util.AndroidBuiltInUtil;
+import com.empire.vmd.client.android_lib.httpproxy.MultipartRequest;
+import com.empire.vmd.client.android_lib.httpproxy.VolleyRequest;
 import com.empire.vmd.client.android_lib.util.EffectUtil;
 import com.empire.vmd.client.android_lib.util.ImageUtil;
 import com.social.feeling.moontalk.R;
-import com.social.feeling.moontalk.fragment.GalleryFragment;
 import com.social.feeling.moontalk.global.PostFeeling;
+import com.social.feeling.moontalk.http.WebConfig;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PreparePostActivity extends BaseActivity {
-    private static final int ACTIVITY_NUM = 0;
+    private static final int LOCAL_ALBUM_ACTIVITY_NUM = 0;
+    //private static final int FEELING_ACTIVITY_NUM = 0;
     private static final int DURATION = 500;
     private static final int PHOTO_WIDTH = 480;
     private static final int PHOTO_HEIGHT = 480;
     private PostFeeling postFeeling = PostFeeling.getInstance();
     private LinearLayout llPhotos;
     private TextView tvLocalAlbum;
-    private TextView tvMoonTalkAlbum;
+    private TextView tvActionAlbum;
     private TextView tvCancel;
     private TextView tvPreviousStep;
     private TextView tvGoOn;
@@ -53,7 +55,7 @@ public class PreparePostActivity extends BaseActivity {
     private INextMission inmTvMoonTalk = new INextMission() {
         @Override
         public void executeNextMission() {
-            effectUtil.activateViewAnimations(tvMoonTalkAlbum, getAnimations(tvMoonTalkAlbum, inmTvCancel), DURATION);
+            effectUtil.activateViewAnimations(tvActionAlbum, getAnimations(tvActionAlbum, inmTvCancel), DURATION);
         }
     };
 
@@ -117,6 +119,7 @@ public class PreparePostActivity extends BaseActivity {
         defaultPhoto = getPhotoImageView(null);
         llPhotos.addView(defaultPhoto);
         tvLocalAlbum.setOnClickListener(getTvLocalAlbumOnClickListener());
+        tvActionAlbum.setOnClickListener(getTvActionAlbumOnClickListener());
         tvCancel.setOnClickListener(getFinishListener());
         tvGoOn.setOnClickListener(getTvGoOnListener());
         tvPreviousStep.setOnClickListener(getFinishListener());
@@ -135,7 +138,8 @@ public class PreparePostActivity extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PreparePostActivity.this, ColorPicker2Activity.class));
+                //startActivity(new Intent(PreparePostActivity.this, TagPickerActivity.class));
+                startActivity(new Intent(PreparePostActivity.this, SensePickerActivity.class));
             }
         };
     }
@@ -153,25 +157,34 @@ public class PreparePostActivity extends BaseActivity {
         effectUtil = new EffectUtil();
         //effectUtil.activateViewAnimations(tvLocalAlbum, getAnimations(tvLocalAlbum, inmTvMoonTalk), DURATION);
         effectUtil.activateViewAnimations(tvLocalAlbum, getAnimations(tvLocalAlbum, null), DURATION * 2);
-        effectUtil.activateViewAnimations(tvMoonTalkAlbum, getAnimations(tvMoonTalkAlbum, null), DURATION * 3);
+        effectUtil.activateViewAnimations(tvActionAlbum, getAnimations(tvActionAlbum, null), DURATION * 3);
         effectUtil.activateViewAnimations(tvCancel, getAnimations(tvCancel, null), DURATION * 4);
     }
 
     private void findViews() {
         llPhotos = (LinearLayout) findViewById(R.id.llPhotos);
         tvLocalAlbum = (TextView) findViewById(R.id.tvLocalAlbum);
-        tvMoonTalkAlbum = (TextView) findViewById(R.id.tvMoonTalkAlbum);
+        tvActionAlbum = (TextView) findViewById(R.id.tvActionAlbum);
         tvCancel = (TextView) findViewById(R.id.tvCancel);
         tvGoOn = (TextView) findViewById(R.id.tvGoOn);
         tvPreviousStep = (TextView) findViewById(R.id.tvPreviousStep);
         hsv = (HorizontalScrollView) findViewById(R.id.hsv);
     }
 
+    private View.OnClickListener getTvActionAlbumOnClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(PreparePostActivity.this, ActionListActivity.class), LOCAL_ALBUM_ACTIVITY_NUM);
+            }
+        };
+    }
+
     private View.OnClickListener getTvLocalAlbumOnClickListener() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(PreparePostActivity.this, PhotoPickerActivity.class), ACTIVITY_NUM);
+                startActivityForResult(new Intent(PreparePostActivity.this, PhotoPickerActivity.class), LOCAL_ALBUM_ACTIVITY_NUM);
             }
         };
     }
@@ -179,7 +192,7 @@ public class PreparePostActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ACTIVITY_NUM && resultCode == RESULT_OK) {
+        if (requestCode == LOCAL_ALBUM_ACTIVITY_NUM && resultCode == RESULT_OK) {
             Bundle bundle = data.getExtras();
             final List<String> newCheckedPhotoList = bundle.getStringArrayList(PhotoPickerActivity.CHECKED_PHOTO_LIST);
 

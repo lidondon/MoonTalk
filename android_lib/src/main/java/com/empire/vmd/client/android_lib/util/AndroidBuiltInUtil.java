@@ -35,6 +35,8 @@ import java.util.Calendar;
  */
 public class AndroidBuiltInUtil {
     private Context context;
+    private static int WIDTH = 1;
+    private static int HEIGHT = 2;
 
     public AndroidBuiltInUtil(Context ctx) {
         context = ctx;
@@ -74,10 +76,18 @@ public class AndroidBuiltInUtil {
     }
 
     public int getScreenWidth() {
+        return getScreenWidthAndHeight(WIDTH);
+    }
+
+    public int getScreenHeight() {
+        return getScreenWidthAndHeight(HEIGHT);
+    }
+
+    public int getScreenWidthAndHeight(int widthOrHeight) {
         DisplayMetrics dm = new DisplayMetrics();
 
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        return dm.widthPixels;
+        return (widthOrHeight == WIDTH) ? dm.widthPixels : dm.heightPixels;
     }
 }

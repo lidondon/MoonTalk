@@ -87,10 +87,14 @@
                 android:maxLines="3"
                 android:textSize="16dp"
                 android:textStyle="bold"/>
-            <FrameLayout
-                android:layout_width="match_parent"
+            <!--<FrameLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/flTags" />-->
+            <ImageView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/flTags" />
+                android:id="@+id/ivSense"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

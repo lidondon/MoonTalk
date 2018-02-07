@@ -1,15 +1,9 @@
 package com.social.feeling.moontalk.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,9 +12,11 @@ import android.widget.Toast;
 
 import com.empire.vmd.client.android_lib.activity.BaseActivity;
 import com.empire.vmd.client.android_lib.adapter.BaseTypeAdapter;
+import com.empire.vmd.client.android_lib.util.DateTimeUtil;
 import com.empire.vmd.client.android_lib.util.DialogUtil;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Friend;
+import com.social.feeling.moontalk.datamodel.PersonData;
 import com.social.feeling.moontalk.dialog.SelectFriendsDialog;
 import com.social.feeling.moontalk.global.Feelings;
 import com.social.feeling.moontalk.global.LoginData;
@@ -36,8 +32,8 @@ public class SharePostActivity extends BaseActivity {
     private TextView tvCommit;
     private TextView tvCancel;
     private ListView lvFriends;
-    private Feelings feelings;
-    private List<Friend> selectedFriendList;
+    //private Feelings feelings;
+    private List<PersonData> selectedFriendList;
     private PostFeeling postFeeling = PostFeeling.getInstance();
     private LoginData loginData = LoginData.getInstance(SharePostActivity.this);
 
@@ -46,7 +42,7 @@ public class SharePostActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_post);
         findViews();
-        feelings = new Feelings(this);
+        //feelings = new Feelings(this);
         tvAdd.setOnClickListener(getTvAddOnClickListener());
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +59,13 @@ public class SharePostActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (selectedFriendList != null && selectedFriendList.size() > 0) {
-                    postFeeling.feeling.account = loginData.account;
-                    postFeeling.feeling.name = loginData.name;
-                    postFeeling.feeling.photoUri = loginData.photo;
+                    postFeeling.feeling.account = loginData.personData.account;
+                    postFeeling.feeling.name = loginData.personData.name;
+                    postFeeling.feeling.photoUri = loginData.personData.photoUrl;
                     postFeeling.feeling.permissionList = getFriendAccountList();
-                    feelings.postFeeling(postFeeling.feeling);
+                    postFeeling.feeling.id = DateTimeUtil.getNowString("yyyyMMdd-HHmmss");
+                    Feelings.postFeeling(SharePostActivity.this, postFeeling.feeling);
+                    //feelings.postFeeling(postFeeling.feeling);
                     setResult(RESULT_OK);
                     finish();
                 } else {
@@ -80,7 +78,7 @@ public class SharePostActivity extends BaseActivity {
     private List<String> getFriendAccountList() {
         List<String> result = new ArrayList<String>();
 
-        for (Friend f : selectedFriendList) {
+        for (PersonData f : selectedFriendList) {
             result.add(f.account);
         }
 
@@ -120,7 +118,7 @@ public class SharePostActivity extends BaseActivity {
             public void onClick(View v) {
                 SelectFriendsDialog.IReceiveCheckedFriendList iReceiveCheckedFriendList = new SelectFriendsDialog.IReceiveCheckedFriendList() {
                     @Override
-                    public void getSelectedFriendList(List<Friend> friendList) {
+                    public void getSelectedFriendList(List<PersonData> friendList) {
                         selectedFriendList = (selectedFriendList == null) ? friendList
                                 : new FriendGroupUtil(SharePostActivity.this).integrateTwoFriendLists(selectedFriendList, friendList);
                         refreshLvMembers(selectedFriendList);
@@ -146,7 +144,7 @@ public class SharePostActivity extends BaseActivity {
         lvFriends = (ListView) findViewById(R.id.lvFriends);
     }
 
-    private void refreshLvMembers(List<Friend> fList) {
+    private void refreshLvMembers(List<PersonData> fList) {
         if (fList != null) {
             BaseTypeAdapter.IItemView iItemView = new BaseTypeAdapter.IItemView() {
                 @Override

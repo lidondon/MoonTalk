@@ -3,6 +3,7 @@ package com.social.feeling.moontalk.global;
 import android.app.Activity;
 
 import com.social.feeling.moontalk.datamodel.Feeling;
+import com.social.feeling.moontalk.datamodel.Quote;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class PostFeeling {
     private static volatile PostFeeling postFeeling;
     private static final List<Activity> activityList = new ArrayList<Activity>();
+    public Quote quote;
     public Feeling feeling;
 
     private PostFeeling() {

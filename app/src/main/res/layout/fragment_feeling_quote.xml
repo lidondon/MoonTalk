@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/tvQuote"
             android:textColor="@color/white"
-            android:textSize="18dp"
+            android:textSize="@dimen/quote"
             android:textStyle="bold"
             android:layout_marginBottom="10dp"/>
     </LinearLayout>

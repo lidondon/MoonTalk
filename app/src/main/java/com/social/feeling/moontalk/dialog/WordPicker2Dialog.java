@@ -6,14 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.NumberPicker;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.empire.vmd.client.android_lib.util.OtherUtil;
-import com.google.zxing.client.result.TextParsedResult;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Quote;
 
@@ -84,7 +80,7 @@ public class WordPicker2Dialog extends Dialog {
         tvWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replacement.setSelectedIndex(index);
+                replacement.setSelectedReplacementIndex(index);
                 if (iWordPickerMission != null) {
                     iWordPickerMission.doMission();
                 }
@@ -97,7 +93,7 @@ public class WordPicker2Dialog extends Dialog {
         npWord.setDisplayedValues(new OtherUtil().getStringArrayFromList(replacement.wordList));
         npWord.setMinValue(0);
         npWord.setMaxValue(replacement.wordList.size() - 1);
-        npWord.setValue(replacement.getSelectedIndex());
+        npWord.setValue(replacement.getSelectedReplacementIndex());
         npWord.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS); //禁止跳出鍵盤
     }
 
@@ -105,7 +101,7 @@ public class WordPicker2Dialog extends Dialog {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replacement.setSelectedIndex(npWord.getValue());
+                replacement.setSelectedReplacementIndex(npWord.getValue());
                 iWordPickerMission.doMission();
                 dismiss();
             }

@@ -80,7 +80,7 @@ public class FeelingPhotoFragment {
     }
 
     private void initImageViews() {
-        ivList = getImageViews();
+        ivList = getImageViewList();
         if (photoList != null && photoList.size() > 0) {
             for (int i = 0; i <= layoutIndex; i++) {
                 final int index = i;
@@ -106,7 +106,7 @@ public class FeelingPhotoFragment {
         }
     }
 
-    private List<ImageView> getImageViews() {
+    private List<ImageView> getImageViewList() {
         List<ImageView> result = new ArrayList<ImageView>();
 
         result.add((ImageView) resultView.findViewById(R.id.iv1));

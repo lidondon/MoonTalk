@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.empire.vmd.client.android_lib.util.ConvertUtil;
 import com.social.feeling.moontalk.R;
+import com.social.feeling.moontalk._interface.IView;
 import com.social.feeling.moontalk.datamodel.Feeling;
 import com.social.feeling.moontalk.fragment.FeelingPhotoFragment;
 import com.social.feeling.moontalk.fragment.FeelingQuoteFragment;
@@ -21,7 +22,7 @@ import com.social.feeling.moontalk.global.Colors;
 /**
  * Created by lidondon on 2016/8/9.
  */
-public class FeelingItem {
+public class FeelingItem implements IView {
     private Context context;
     private Feeling feeling;
     private ViewHolder viewHolder;

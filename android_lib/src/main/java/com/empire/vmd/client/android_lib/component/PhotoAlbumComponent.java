@@ -40,6 +40,7 @@ public class PhotoAlbumComponent {
     private TextView tvCancel;
     private IListeners iListeners;
     private Set<AddPhotoItemAsyncTask> taskCollection;
+    private boolean hasCamera;
 
     private Handler handler = new Handler() {
         @Override
@@ -53,7 +54,7 @@ public class PhotoAlbumComponent {
             rlButtons.setVisibility(View.VISIBLE);
             photoItem.setWidth(autoChangeLineLayout.getWidth(), photoRowNum);
             task.execute(uri);
-            if (autoChangeLineLayout.getChildCount() == 0) {
+            if (autoChangeLineLayout.getChildCount() == 0 && hasCamera) {
                 PhotoItem ivCamera = new PhotoItem(context, R.drawable.camera);
                 View photoView = null;
 
@@ -71,10 +72,11 @@ public class PhotoAlbumComponent {
         }
     };
 
-    public PhotoAlbumComponent(Context ctx, int rowNum, IListeners il) {
+    public PhotoAlbumComponent(Context ctx, int rowNum, boolean ha, IListeners il) {
         context = ctx;
         photoRowNum = rowNum;
         checkedList = new ArrayList<String>();
+        hasCamera = ha;
         iListeners = il;
         taskCollection = new HashSet<AddPhotoItemAsyncTask>();
     }

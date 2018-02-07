@@ -3,6 +3,7 @@ package com.social.feeling.moontalk.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.social.feeling.moontalk.datamodel.PersonData;
 import com.social.feeling.moontalk.global.LoginData;
 
 /**
@@ -19,8 +20,8 @@ public class PrefUtil {
     }
 
     public void saveLoginData(String account, String name) {
-        editor.putString(LoginData.LOGIN_ACCOUNT, account);
-        editor.putString(LoginData.LOGIN_NAME, name);
-        editor.apply();
+//        editor.putString(PersonData.ACCOUNT, account);
+//        editor.putString(PersonData.NICKNAME, name);
+//        editor.apply();
     }
 }

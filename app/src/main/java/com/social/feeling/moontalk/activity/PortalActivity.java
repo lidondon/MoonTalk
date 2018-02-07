@@ -36,7 +36,8 @@ public class PortalActivity extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(PortalActivity.this, RegisterActivity.class));
+                finish();
             }
         };
     }

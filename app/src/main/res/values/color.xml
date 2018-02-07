@@ -1,4 +1,6 @@
 <resources>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_white">#e0ffffff</color>
     <color name="grey_8">#888888</color>
     <color name="grey_6">#666666</color>
     <color name="grey_a">#AAAAAA</color>
@@ -17,4 +19,6 @@
     <color name="facebook">#aabbff</color>
     <color name="light_sky_blue">#87cefa</color>
     <color name="yellow">#ffff00</color>
+    <color name="light_yellow">#ffffdd</color>
+    <color name="orange">#ff9900</color>
 </resources>

@@ -49,11 +49,17 @@ public class FeelingQuoteFragment {
         if (feeling.photoUri == null) {
             ivPhoto.setImageResource(R.drawable.no_man);
         } else {
-            ivPhoto.setImageBitmap(ImageUtil.getThumbnailBitmap(feeling.photoUri, PHOTO_WIDTH, PHOTO_HEIGHT));
+            Bitmap bitmap = ImageUtil.getThumbnailBitmap(feeling.photoUri, PHOTO_WIDTH, PHOTO_HEIGHT);
+
+            if (bitmap == null) {
+                ivPhoto.setImageResource(R.drawable.no_man);
+            } else {
+                ivPhoto.setImageBitmap(bitmap);
+            }
         }
         tvName.setText(feeling.name);
         tvThought.setText(feeling.thought);
-        tvQuote.setText(feeling.quote.currentText);
+        tvQuote.setText(feeling.quote);
 
         return resultView;
     }

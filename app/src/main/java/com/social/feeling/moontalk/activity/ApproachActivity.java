@@ -11,9 +11,9 @@ import android.widget.ImageView;
 
 import com.empire.vmd.client.android_lib.activity.BaseActivity;
 import com.empire.vmd.client.android_lib.util.EffectUtil;
-import com.example.feeling.MediaProxy;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.global.LoginData;
+import com.social.feeling.moontalk.http.MediaProxy;
 
 public class ApproachActivity extends BaseActivity {
     private static final int DURATION = 2000;
@@ -29,7 +29,8 @@ public class ApproachActivity extends BaseActivity {
     }
 
     private void getImageFromServer() {
-        MediaProxy.getProxy(ApproachActivity.this).loadImage(ivLogo, "http://iamfeeling.ddns.net/test/Koala.jpg");
+        MediaProxy.getProxy(ApproachActivity.this).loadImage(ivLogo
+                , "https://hair-kids-nest.s3.amazonaws.com/uploads/pet_photo/image/1/thumb_IMG_1043.JPG", null);
     }
 
     private void findViews() {
@@ -70,7 +71,7 @@ public class ApproachActivity extends BaseActivity {
     }
 
     private void redirectTo() {
-        if (LoginData.getInstance(this).account != null) {
+        if (LoginData.getInstance(this).personData != null) {
             startActivity(new Intent(this, PortalActivity.class));
         } else {
             startActivity(new Intent(this, PortalActivity.class));

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.empire.vmd.client.android_lib.activity.BaseActivity;
 import com.empire.vmd.client.android_lib.adapter.BaseTypeAdapter;
-import com.example.feeling.MediaProxy;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Quote;
 import com.social.feeling.moontalk.global.PostFeeling;
@@ -113,7 +112,7 @@ public class QuotePickerActivity extends BaseActivity implements AbsListView.OnS
     }
 
     private void initQuotes() {
-        quoteList = Quote.getQuoteList(this);
+        Quote.getQuoteList(this, null);
         quoteTextList = Quote.getQuoteTextList(quoteList);
     }
 
@@ -122,7 +121,7 @@ public class QuotePickerActivity extends BaseActivity implements AbsListView.OnS
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(QuotePickerActivity.this, ReplacementPicker2Activity.class);
-                postFeeling.feeling.quote = quoteList.get(lastMiddleNum - upSpace);
+                postFeeling.quote = quoteList.get(lastMiddleNum - upSpace);
                 startActivity(intent);
             }
         };

@@ -27,8 +27,8 @@ public class TagActivity extends BaseFragmentActivity {
         postFeeling.addActivity(this);
         findViews();
         initPhotos();
-        tvQuote.setText(postFeeling.feeling.quote.currentText);
-        initFlTags();
+        tvQuote.setText(postFeeling.feeling.quote);
+        //initFlTags();
         tvCommit.setOnClickListener(getTvCommitOnClickListener());
         tvCancel.setOnClickListener(getTvCancelOnClickListener());
     }
@@ -37,7 +37,7 @@ public class TagActivity extends BaseFragmentActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                postFeeling.feeling.tagList = tagsFragment.getTagList();
+                //postFeeling.feeling.tagList = tagsFragment.getTagList();
                 startActivity(new Intent(TagActivity.this, PostActivity.class));
             }
         };
@@ -71,7 +71,7 @@ public class TagActivity extends BaseFragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        postFeeling.feeling.tagList = null;
-        postFeeling.removeActivity(this);
+//        postFeeling.feeling.tagList = null;
+//        postFeeling.removeActivity(this);
     }
 }

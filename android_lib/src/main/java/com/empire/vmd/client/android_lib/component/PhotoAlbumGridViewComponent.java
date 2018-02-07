@@ -16,6 +16,7 @@ import com.empire.vmd.client.android_lib.R;
 import com.empire.vmd.client.android_lib.adapter.BaseTypeAdapter;
 import com.empire.vmd.client.android_lib.async.ImageViewBitmapAsyncTask;
 import com.empire.vmd.client.android_lib.item.PhotoItem;
+import com.empire.vmd.client.android_lib.util.ImageUtil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -38,16 +39,8 @@ public class PhotoAlbumGridViewComponent implements AbsListView.OnScrollListener
 
     public PhotoAlbumGridViewComponent(Context ctx) {
         context = ctx;
-        initBitmapLruCache();
+        bitmapLruCache = ImageUtil.getBitmapLruCache();
         taskCollection = new HashSet<ImageViewBitmapAsyncTask>();
-    }
-
-    private void initBitmapLruCache() {
-        // 获取应用程序最大可用内存
-        int maxMemory = (int) Runtime.getRuntime().maxMemory();
-        int cacheSize = maxMemory / 8;
-
-        bitmapLruCache = new LruCache<String, Bitmap>(cacheSize);
     }
 
     private LayoutInflater getInflater() {

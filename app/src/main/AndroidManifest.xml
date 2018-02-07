@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.social.feeling.moontalk" >
+    package="com.social.feeling.moontalk">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/desktop"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.Main2Activity"
             android:label="@string/title_activity_main2"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PortalActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ApproachActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,72 +40,79 @@
         <activity
             android:name=".activity.PreparePostActivity"
             android:label="@string/title_activity_post"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PhotoPickerActivity"
             android:label="@string/title_activity_photo_picker"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ColorPickerActivity"
             android:label="@string/title_activity_color_picker"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.QuotePickerActivity"
             android:label="@string/title_activity_quote_picker"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QuotePicker2Activity"
+            android:label="@string/title_activity_quote_picker"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ReplacementPickerActivity"
             android:label="@string/title_activity_replacement_picker"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ReplacementPicker2Activity"
             android:label="@string/title_activity_replacement_picker"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.WordPickerActivity"
             android:label="@string/title_activity_word_picker"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.TagActivity"
             android:label="@string/title_activity_post"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PostActivity"
             android:label="@string/title_activity_post"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SharePostActivity"
             android:label="@string/title_activity_share_post"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.FeelingDetailActivity"
             android:label="@string/title_activity_feeling_detail"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ColorPicker2Activity"
             android:label="@string/title_activity_color_picker2"
-            android:screenOrientation="portrait" >
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.Main3Activity"
-            android:label="@string/title_activity_main3" >
-        </activity>
+            android:label="@string/title_activity_main3" />
+        <activity
+            android:name=".activity.PersonDataActivity"
+            android:label="@string/title_activity_personal" />
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".activity.TagPickerActivity"
+            android:label="@string/title_activity_tag_picker" />
+        <activity
+            android:name=".activity.SensePickerActivity"
+            android:label="@string/title_activity_sense_picker" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.ActionListActivity" />
+        <activity android:name=".activity.PersonalActivity" />
+        <activity android:name=".activity.FriendsManagementActivity" />
+        <activity android:name=".activity.TestServerActivity"></activity>
     </application>
 
 </manifest>

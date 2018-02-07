@@ -1,6 +1,9 @@
 package com.empire.vmd.client.android_lib.util;
 
+import android.content.ContentResolver;
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
@@ -91,13 +94,25 @@ public class FileUtil {
     }
 
     public void saveExternalFile(String strDir, String fileName, String strData) {
+        saveExternalFile(strDir, fileName, strData.getBytes(), false);
+    }
+
+    public void saveExternalFile(String strDir, String fileName, byte[] bytes) {
+        saveExternalFile(strDir, fileName, bytes, false);
+    }
+
+    public void saveExternalFile(String strDir, String fileName, byte[] bytes, boolean deleteFile) {
         File file = getExternalFile(strDir, fileName);
 
         if (file != null) {
+            if (file.exists()) {
+                file.delete();
+            }
+
             try {
                 FileOutputStream fos = new FileOutputStream(file);
 
-                fos.write(strData.getBytes());
+                fos.write(bytes);
                 fos.close();
             } catch (Exception e) {
                 Log.e(this.getClass().getName(), e.getMessage().toString());
@@ -121,5 +136,14 @@ public class FileUtil {
         }
 
         return file;
+    }
+
+    public String getAbsolutePath(Uri uri) {
+        ContentResolver localContentResolver = context.getContentResolver();
+        Cursor localCursor = localContentResolver.query(uri, null, null, null, null);
+
+        localCursor.moveToFirst();
+
+        return localCursor.getString(localCursor.getColumnIndex("_data"));
     }
 }

@@ -1,5 +1,6 @@
 package com.social.feeling.moontalk.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,7 +30,7 @@ import com.social.feeling.moontalk.global.PostFeeling;
 
 import java.util.List;
 
-public class ColorPicker2Activity extends AppCompatActivity {
+public class ColorPicker2Activity extends Activity {
     private int colorItemWidth = 150;
     private int colorItemHeight = 150;
     private PostFeeling postFeeling = PostFeeling.getInstance();
@@ -130,7 +131,7 @@ public class ColorPicker2Activity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ColorPicker2Activity.this, QuotePickerActivity.class);
+                Intent intent = new Intent(ColorPicker2Activity.this, QuotePicker2Activity.class);
                 postFeeling.feeling.checkedColorId = colors.colorObjectList.get(imageIndex).id;
                 startActivity(intent);
             }

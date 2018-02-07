@@ -1,14 +1,8 @@
 package com.social.feeling.moontalk.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -18,8 +12,8 @@ import com.empire.vmd.client.android_lib.util.TabUtil;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.fragment.NewFragment;
 import com.social.feeling.moontalk.fragment.PersonalFragment;
-import com.social.feeling.moontalk.fragment.WallFragment;
-import com.social.feeling.moontalk.global.MainController;
+import com.social.feeling.moontalk.fragment.FeelingPostFragment;
+import com.social.feeling.moontalk.global.LoginData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,9 +49,10 @@ public class Main3Activity extends BaseFragmentActivity {
     private void getFragments() {
         fragmentList = (fragmentList == null) ? new ArrayList<Fragment>() : fragmentList;
 
-        fragmentList.add(new WallFragment(this));
+        //fragmentList.add(new FeelingPostFragment(this));
         fragmentList.add(new NewFragment(this));
-        fragmentList.add(new PersonalFragment(this));
+        fragmentList.add(new NewFragment(this));
+        fragmentList.add(new PersonalFragment());
         fragmentList.add(new NewFragment(this));
     }
 
