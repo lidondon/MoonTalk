@@ -42,17 +42,15 @@ public class FeelingDetailActivity extends BaseFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feeling_detail);
         findViews();
-        getExtrasData();
-        initLlPerson();
-        initPhotos();
-        //ivColor.setImageResource(Colors.getInstance().getColorResource(feeling.checkedColorId));
-        tvQuote.setText(feeling.quote);
-        //initFlTags();
-        tvThought.setText(feeling.thought);
-    }
-
-    private void getExtrasData() {
         feeling = getFeelingByUid(getIntent().getExtras().getString(Feeling.class.getName()));
+        if (feeling != null) {
+            initLlPerson();
+            initPhotos();
+            //ivColor.setImageResource(Colors.getInstance().getColorResource(feeling.checkedColorId));
+            tvQuote.setText(feeling.quote);
+            //initFlTags();
+            tvThought.setText(feeling.thought);
+        }
     }
 
     private Feeling getFeelingByUid(String uid) {
@@ -70,8 +68,7 @@ public class FeelingDetailActivity extends BaseFragmentActivity {
     }
 
     private void initLlPerson() {
-        Bitmap bitmap = (feeling.photoUri != null) ? ImageUtil.getThumbnailBitmap(feeling.photoUri, PHOTO_WIDTH, PHOTO_HEIGHT)
-                : null;
+        Bitmap bitmap = (feeling.photoUri != null) ? ImageUtil.getThumbnailBitmap(feeling.photoUri, PHOTO_WIDTH, PHOTO_HEIGHT) : null;
 
         if (bitmap != null) {
             ivPhoto.setImageBitmap(bitmap);

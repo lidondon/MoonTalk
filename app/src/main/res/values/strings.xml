@@ -96,5 +96,7 @@
     <string name="request_fail">請求失敗</string>
     <string name="already_sent_request">已送出邀請</string>
     <string name="group">群組</string>
-    <string name="invite">邀請</string>
+    <string name="request">邀請</string>
+    <string name="recipient">接受者</string>
+    <string name="agree">同意</string>
 </resources>

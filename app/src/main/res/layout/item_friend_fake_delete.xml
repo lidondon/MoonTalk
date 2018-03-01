@@ -42,6 +42,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="5dp"
+            android:src="@drawable/no_man"
             android:id="@+id/ivIcon"/>
         <TextView
             android:layout_width="match_parent"

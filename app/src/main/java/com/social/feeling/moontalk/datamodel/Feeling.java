@@ -39,7 +39,7 @@ public class Feeling {
     public static final String FEELING_TAG = "FeelingTag";
     public static final String THOUGHT = "Thought";
     public String id;
-    public String person_id = "3"; //for test
+    //public String person_id = "3"; //for test
     public String account;
     public String name;
     public String photoUri;

@@ -21,6 +21,7 @@ import com.social.feeling.moontalk.fragment.FeelingPostFragment;
 import com.social.feeling.moontalk.fragment.MoreFragment;
 import com.social.feeling.moontalk.fragment.NewFragment;
 import com.social.feeling.moontalk.fragment.PersonalFragment;
+import com.social.feeling.moontalk.global.FriendAndGroup;
 import com.social.feeling.moontalk.global.LoginData;
 import com.social.feeling.moontalk.global.MainController;
 
@@ -66,6 +67,8 @@ public class MainActivity extends BaseFragmentActivity {
         initLeftDrawer();
 //        initTabFunction();
 //        tabUtil.bindTabAndPager(radioGroup, viewPager);
+        //一登入成功進入此頁面，就載入好友資訊（好友名單、inviter、invitee）
+        FriendAndGroup.getInstance(this);
     }
 
     private void findViews() {

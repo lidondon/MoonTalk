@@ -192,6 +192,7 @@ public class FeelingManager {
             protected Map<String, String> getParams() {
                 Map<String, String> result = new HashMap<String, String>();
                 try {
+                    String ss = feeling.toJSONObject().toString();
                     result.put(ARTICLE, feeling.toJSONObject().toString());
                 } catch (Exception e) {
                     Log.e("COCO", e.toString());

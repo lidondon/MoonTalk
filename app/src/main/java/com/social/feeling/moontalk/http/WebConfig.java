@@ -26,8 +26,10 @@ public abstract  class WebConfig {
     public static final String INVITE_FRIEND = SERVER + GATEWAY + "/post/140";
     public static final String ACCEPT_FRIEND = SERVER + GATEWAY + "/post/141";
     public static final String QUERY_FRIEND = SERVER + GATEWAY + "/post/142";
-    public static final String QUERY_INVITER = SERVER + GATEWAY + "/post/143";
-    public static final String QUERY_INVITEE = SERVER + GATEWAY + "/post/144";
+    public static final String QUERY_REQUESTER = SERVER + GATEWAY + "/post/143";
+    public static final String QUERY_RECIPIENT = SERVER + GATEWAY + "/post/144";
+    public static final String DELETE_FRIEND = SERVER + GATEWAY + "/post/145";
+    public static final String QUERY_FRIEND_MANAGEMENT = SERVER + GATEWAY + "/post/146";
 
 
     public static final String GET_COOKIE = "Set-Cookie";

@@ -32,7 +32,7 @@ import java.util.List;
 public class FeelingPostFragment extends Fragment {
     private static int createTimes;
     private Context context;
-    private int loadingCountAtOnce = 1;
+    private int loadingCountAtOnce = 3;
     private FeelingListFragment feelingListFragment;
     private LinearLayout llFeelings;
     private EditText etShare;

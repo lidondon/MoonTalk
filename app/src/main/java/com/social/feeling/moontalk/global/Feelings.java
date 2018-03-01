@@ -242,7 +242,7 @@ public class Feelings {
 
     /**
      *
-     * @param beginIndex
+     * @param
      * @param stopIndex excluded
      * @return
      */

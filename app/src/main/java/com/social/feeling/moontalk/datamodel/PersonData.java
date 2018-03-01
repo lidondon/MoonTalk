@@ -11,10 +11,12 @@ import java.io.Serializable;
  */
 public class PersonData implements Serializable {
     public static final String TAG = "PersonData";
+    public static final String ID = "id";
     public static final String ACCOUNT = "account";
-    public static final String NAME = "username";
-    private static final String PHOTO_URL = "PhotoUrl";
-    public static final String PASSWORD = "password";
+    public static final String NAME = "name";
+    private static final String PHOTO = "photo";
+    //public static final String PASSWORD = "password";
+    public String id;
     public String account;
     public String name;
     public String photoUrl;
@@ -25,9 +27,10 @@ public class PersonData implements Serializable {
 
     public PersonData(JSONObject jo) {
         try {
+            id = jo.getString(ID);
             account = jo.getString(ACCOUNT);
             name = jo.getString(NAME);
-            photoUrl = jo.getString(PHOTO_URL);
+            photoUrl = jo.getString(PHOTO);
         } catch (Exception e) {
             Log.e(TAG, e.toString());
         }
@@ -39,7 +42,7 @@ public class PersonData implements Serializable {
         try {
             result.put(ACCOUNT, account);
             result.put(NAME, name);
-            result.put(PHOTO_URL, photoUrl);
+            result.put(PHOTO, photoUrl);
         } catch (Exception e) {
             Log.e(getClass().getName(), e.toString());
         }

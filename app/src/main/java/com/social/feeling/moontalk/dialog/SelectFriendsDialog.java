@@ -73,17 +73,18 @@ public class SelectFriendsDialog extends Dialog implements ExpandableListViewAda
     private ExpandableListViewAdapter getElvAdapter() {
         ExpandableListViewAdapter elvAdapter = null;
         FriendAndGroup friendAndGroup = FriendAndGroup.getInstance(context);
+        List friendList = friendAndGroup.listOfList.get(FriendAndGroup.FRIEND_INDEX).list;
 
-        if (friendAndGroup.friendList == null || friendAndGroup.friendList.size() == 0) {
+        if (friendList == null || friendList.size() == 0) {
             Toast.makeText(context, R.string.empty_friend, Toast.LENGTH_SHORT).show();
             dismiss();
         } else {
             groupList = new ArrayList();
             childrenList = new ArrayList<List>();
-            groupList.add("群組 (" + ((friendAndGroup.groupOfFriendList == null) ? 0 : friendAndGroup.groupOfFriendList.size()) + ")");
-            groupList.add("好友 (" + ((friendAndGroup.friendList == null) ? 0 : friendAndGroup.friendList.size()) + ")");
-            childrenList.add(friendAndGroup.groupOfFriendList);
-            childrenList.add(friendAndGroup.friendList);
+            //groupList.add("群組 (" + ((friendAndGroup.groupOfFriendList == null) ? 0 : friendAndGroup.groupOfFriendList.size()) + ")");
+            groupList.add("好友 (" + ((friendList == null) ? 0 : friendList.size()) + ")");
+            //childrenList.add(friendAndGroup.groupOfFriendList);
+            childrenList.add(friendList);
             elvAdapter = new ExpandableListViewAdapter(this, groupList, childrenList);
         }
 

@@ -109,17 +109,17 @@ public class NewFeelingPhotoFragment {
         if (ivList.size() > 0) {
             for (int i = 0; i < ivList.size(); i++) {
                 String photoUri = WebConfig.SERVER + photoUrlList.get(i);
-                //Bitmap bp = bitmapLruCache.get(photoUri);
-                Bitmap bp = bitmapLruCache.get("http://hair-kids-nest.s3.amazonaws.com/uploads/pet_photo/image/8/images-9.jpeg");
+                Bitmap bp = bitmapLruCache.get(photoUri);
+                //Bitmap bp = bitmapLruCache.get("http://hair-kids-nest.s3.amazonaws.com/uploads/pet_photo/image/8/images-9.jpeg");
                 ImageView iv = ivList.get(i);
                 final int index = i;
 
                 if (bp != null) {
                     iv.setImageBitmap(bp);
                 } else {
-                    //MediaProxy.getProxy(context).loadImage(iv, photoUri, bitmapLruCache);
-                    MediaProxy.getProxy(context).loadImage(iv
-                            , "http://hair-kids-nest.s3.amazonaws.com/uploads/pet_photo/image/8/images-9.jpeg", bitmapLruCache);
+                    MediaProxy.getProxy(context).loadImage(iv, photoUri, bitmapLruCache);
+//                    MediaProxy.getProxy(context).loadImage(iv
+//                            , "http://hair-kids-nest.s3.amazonaws.com/uploads/pet_photo/image/8/images-9.jpeg", bitmapLruCache);
                 }
                 llPhotos.addView(iv);
 

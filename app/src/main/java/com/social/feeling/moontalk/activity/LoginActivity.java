@@ -25,6 +25,7 @@ import com.empire.vmd.client.android_lib.activity.BaseActivity;
 import com.empire.vmd.client.android_lib.httpproxy.VolleyRequest;
 import com.social.feeling.moontalk.R;
 import com.social.feeling.moontalk.datamodel.Quote;
+import com.social.feeling.moontalk.global.FriendAndGroup;
 import com.social.feeling.moontalk.global.LoginData;
 import com.social.feeling.moontalk.http.AccountManager;
 import com.social.feeling.moontalk.http.WebConfig;
@@ -55,6 +56,7 @@ public class LoginActivity extends BaseActivity {
         accountManager = AccountManager.getInstance(this);
         btnCommit.setOnClickListener(getBtnCommitOnClickListener());
         btnCancel.setOnClickListener(getBtnCancelOnClickListener());
+
     }
 
     private void findViews() {
@@ -114,7 +116,7 @@ public class LoginActivity extends BaseActivity {
                             }
                         }
                     };
-                    accountManager.login(etAccount.getText().toString(), etPassword.getText().toString(), handler);
+                    accountManager.login(etAccount.getText().toString().trim(), etPassword.getText().toString().trim(), handler);
                     //startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
             }
